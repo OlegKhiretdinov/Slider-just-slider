@@ -3,7 +3,7 @@ export function normalaizeOptions(options:any):any {
     inputSelector = 'input',
     sliderSelector = '.just-slider',
     values = [0, 1000],
-    points = [100],
+    pointsValue = [100],
     
   } = options;
 
@@ -15,7 +15,7 @@ export function normalaizeOptions(options:any):any {
     return true;
   }
   const diapason = valueIsNumber(values) ? values: [0, values.length - 1];
-  points.sort((a, b) => a - b);
+  pointsValue.sort((a, b) => a - b);
 
-  return {inputEl, blockForSlider, diapason, points};
+  return {inputEl, blockForSlider, diapason, pointsValue};
 }
