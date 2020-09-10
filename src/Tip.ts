@@ -2,10 +2,12 @@ export class Tip {
   parentEl
   tipEl
   index
+  pointsValue
 
-  constructor(index:number, parentEl:HTMLElement) {
+  constructor(index:number, parentEl:HTMLElement, pointsValue:number[]) {
     this.parentEl = parentEl;
     this.index = index;
+    this.pointsValue = pointsValue;
     const tip = document.createElement('div');
     tip.classList.add('tip');
     this.tipEl = tip;
@@ -15,11 +17,14 @@ export class Tip {
     this.tipEl.style.left = `${num}px`
   }
 
+  showValues():void {
+    this.tipEl.innerHTML = `${this.pointsValue[this.index]}`;
+  }
+
   positioning ():void {
-    const heightTip = this.tipEl.offsetHeight;
     const samePointHeight = this.parentEl.querySelectorAll('.point')[this.index].offsetHeight;
     const parentHeight = this.parentEl.offsetHeight;
-    this.tipEl.style.top = `${(parentHeight - samePointHeight) / 2 - heightTip}px`;
+    this.tipEl.style.bottom = `${(parentHeight + samePointHeight) / 2}px`;
   }
 
   render():void {
