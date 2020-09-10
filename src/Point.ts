@@ -1,48 +1,47 @@
 import { pointHandler } from './handlers';
 
 export class Point {
+  parentEl
   index
   pointsArr
-  point
+  pointEl
   diapason
 
-  constructor(index:number, points:[number], diapason:[number]) {
+  constructor(index:number, points:[number], diapason:[number], parentEl:HTMLElement) {
+    this.parentEl = parentEl;
     this.index = index;
     this.pointsArr = points;
     const point = document.createElement('div');
     point.classList.add('point');
-    this.point = point;
+    this.pointEl = point;
     this.diapason = diapason;
   }
 
-  prepare() {
-    
-    const slider = this.point.parentElement;
-    /**
-     * после нажатия кнопки но перед движением
-     * высчитывает длину слайдера
-     * определяет отношение координат к значению
-     */
-  }
-
-  moveTo(num) {
+  moveTo(num:number):void {
     /**
      * определяет максимальные минимальные значения
      * решает можно двигаться или нет
      * если можно меняет position
+     * 
+     * 
      */
-    this.point.style.left = `${num}px`;
+    this.pointEl.style.left = `${num}px`;
   }
 
   // pointHandler() {
   //   const sliderWidth
   // }
 
-  render(sliderBlock: HTMLElement):void {
-    this.point.addEventListener('mousedown',() => {})
-    sliderBlock.append(this.point);
-    const heightPoint = this.point.offsetHeight;
-    this.point.style.top = `calc(50% - ${heightPoint / 2}px)`
+  positioning():void {
+    const heightPoint = this.pointEl.offsetHeight;
+    const parentHeight = this.parentEl.offsetHeight;
+    this.pointEl.style.top = `${(parentHeight - heightPoint) / 2}px`;
+  }
+
+  render():void {
+    this.parentEl.append(this.pointEl);
+    this.positioning();
+    this.pointEl.addEventListener('mousedown', pointHandler.bind(this));
   }
 }
 
