@@ -4,6 +4,7 @@ import { Tip } from './Tip';
 import { Slider } from './Slider';
 import { Progressbar} from './Progressbar'
 import { normalaizeOptions } from './utils';
+import { Observer } from './Observer';
 
 export function initSlider(options: any = {}): any {
   const {
@@ -12,6 +13,9 @@ export function initSlider(options: any = {}): any {
     diapason,
     pointsValue
   } = normalaizeOptions(options);
+
+// Observer
+  const observer = new Observer(pointsValue);
 
 // Slider wrapper
   const slider = new Slider(blockForSlider);
@@ -32,9 +36,13 @@ export function initSlider(options: any = {}): any {
 
 // Tips
   const tips = pointsValue.map((startPoint:number, index:number) => {
-    const tip = new Tip(index, sliderEl);
+    const tip = new Tip(index, sliderEl, pointsValue);
     tip.render();
     tip.moveTo(startPoint);
+    // tip.showValues();
+    observer.subscribe(tip.showValues.bind(tip));
+    observer.subscribers[index]()
+    console.log(observer.subscribers)
     return tip;
   })
   return slider;
