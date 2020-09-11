@@ -1,24 +1,26 @@
-import { pointHandler } from './handlers';
+import { pointMouseDown } from './handlers';
 
 export class Point {
   parentEl
   index
-  pointsArr
+  pointsValue
   pointEl
   diapason
 
-  constructor(index:number, points:[number], diapason:[number], parentEl:HTMLElement) {
+  constructor(index:number, pointsValue:[number], diapason:[number], parentEl:HTMLElement) {
     this.parentEl = parentEl;
     this.index = index;
-    this.pointsArr = points;
+    this.pointsValue = pointsValue;
     const point = document.createElement('div');
     point.classList.add('point');
     this.pointEl = point;
     this.diapason = diapason;
   }
 
-  moveTo(num:number):void {
-    this.pointEl.style.left = `${num}px`;
+  moveTo():void {
+    const positioningVal = (this.pointsValue[this.index] - this.diapason[0]) / (this.diapason[1] - this.diapason[0]);
+    const widthPoint = this.pointEl.offsetWidth;
+    this.pointEl.style.left = `calc(${positioningVal * 100}% - ${widthPoint / 2}px)`;
   }
 
   positioning():void {
@@ -30,6 +32,6 @@ export class Point {
   render():void {
     this.parentEl.append(this.pointEl);
     this.positioning();
-    this.pointEl.addEventListener('mousedown', pointHandler.bind(this));
+    this.pointEl.addEventListener('mousedown', pointMouseDown.bind(this));
   }
 }
