@@ -1,11 +1,11 @@
-import { pointMovement } from './model';
+import { changeValuePoint } from './model';
 
-export function pointHandler():void {
+export function pointMouseDown():void {
   const { width: sliderSize, x: sliderSatrtCoordinate } = this.parentEl.getBoundingClientRect();
 
   const movePoint = (event):void => {
     const pointDislocation = (event.pageX - sliderSatrtCoordinate) / sliderSize;
-    pointMovement(this.diapason, this.pointsArr, this.index, pointDislocation)
+    changeValuePoint(this.diapason, this.pointsValue, this.index, pointDislocation)
   }
   
   document.addEventListener('mousemove', movePoint);
