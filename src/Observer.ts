@@ -1,14 +1,17 @@
 export class Observer {
-  pointsValue
   subscribers
 
-  constructor(pointsValue:[number]) {
-    this.pointsValue = pointsValue;
+  constructor() {
     this.subscribers = []
   }
 
   subscribe(fn: () => void):void {
-    console.log(typeof this.subscribers)
     this.subscribers.push(fn);
+  }
+
+  broadcast():void {
+    this.subscribers.forEach(element => {
+      element()
+    });
   }
 }
