@@ -24,7 +24,8 @@ export function normalaizeOptions(options:any):any {
     sliderSelector = '.just-slider',
     values = [0, 1000],
     pointsValue = [100],
-    progressbarMode
+    progressbarMode,
+    direction = 'horizontal',
     
   } = options;
 
@@ -43,5 +44,5 @@ export function normalaizeOptions(options:any):any {
   const progressbarFillPoint = getStartPoint(pointsValue, progressbarMode);
 
   const value = pointsValue // ????
-  return {inputEl, blockForSlider, diapason, value, progressbarFillPoint};
+  return {inputEl, blockForSlider, diapason, value, progressbarFillPoint, direction};
 }

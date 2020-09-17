@@ -1,18 +1,14 @@
-export class Slider {
-  sliderBlock;
-  sliderEl: HTMLElement;
+import { SliderElement } from './SliderElement';
 
-  constructor(sliderBlock: HTMLElement) {
-    this.sliderBlock = sliderBlock;
-    this.sliderEl = document.createElement('div');
-    this.sliderEl.classList.add('sliderJustSlider');
-  }
-
-  render():void {
-    this.sliderBlock.append(this.sliderEl);
+export class Slider extends SliderElement{
+  
+  constructor(parentEl: HTMLElement, direction: string) {
+    super(parentEl, direction)    
+    this.element = document.createElement('div');
+    this.element.classList.add('sliderJustSlider', `sliderJustSlider_${direction}`);
   }
 
   get slider(): HTMLElement {
-    return this.sliderEl;
+    return this.element;
   }
 }
